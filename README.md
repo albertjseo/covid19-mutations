@@ -29,9 +29,7 @@ Create a file
 
 Next, navigate to the preferred IDE. I used PyCharm to clean and analyze the data. 
 
-For my analysis I used the hCoV-19/Wuhan/WIV04/2019 (WIV04) from GISAID as my reference sequence and MZ571142.1 from NCBI 
-as my mutant sequence. WIV04 was chosen because of its high-quality genome sequence and because it represented the consensus of a handful of 
-early submissions for the betacoronavirus responsible for COVID-19. (Pilailuk et al 2020) and MZ571142.1 was chosen due to its severity as a
+For my analysis I used the NC_045512.2-GenBank sequence as my reference and MZ571142.1 was chosen due to its severity as a
 variant.
 
 To ensure a full analysis I do the following:
@@ -46,8 +44,7 @@ To ensure a full analysis I do the following:
 ### Alignments
 ![alignment.png](reference_img/alignment.png)
 
-### Mutations 
-![mutations.png](reference_img/mutations.png)
+### 
 
 
 

@@ -1,15 +1,25 @@
 from Bio import SeqIO
+import requests
+from Bio.Seq import Seq
 from Bio.Align import PairwiseAligner
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-# load the reference FASTA sequence file
-reference_record = SeqIO.read("/Users/albertseo/Development/covid19-mutations/sequences/EPI_ISL_402124-ORF1ab.fasta", "fasta")
-reference_seq = reference_record.seq
+# load the sequence files
+gb_ref_file = "/Users/albertseo/Development/covid19-mutations/ncbi_dataset/data/GenBank/NC_045512.2.gb"
+gb_var_file = "/Users/albertseo/Development/covid19-mutations/ncbi_dataset/data/GenBank/MZ571142.1.gb"
 
-# load the mutant sequences (can accept more than one variant sequence)
-mutant_records = list(SeqIO.parse("/Users/albertseo/Development/covid19-mutations/sequences/MZ571142.1.fasta", "fasta"))
+# parse the files
+ref_seq = SeqIO.read(gb_ref_file, "genbank").seq
+var_seq = SeqIO.read(gb_var_file, "genbank").seq
 
-# align the sequences to detect differences using PairwiseAligner
-# PairwiseAligner provides more flexibility and better control over alignment parameters.
+# checkpoint
+print(ref_seq)
+print(var_seq)
+
+# perform alignment using aligner object
+# PairwiseAligner provides more flexibility and better control over alignment parameters
 aligner = PairwiseAligner() # establish the object
 aligner.mode = "global"  # global (Needleman-Wunsch) alignment
 aligner.match_score = 1 # a score that indicates how well a read nucleotide matches a reference nucleotide
@@ -17,30 +27,11 @@ aligner.mismatch_score = -1 # the negative penalty assigned when two characters 
 aligner.open_gap_score = -2 # the penalty value assigned to the act of initiating a gap (inserting a space) when aligning two sequences
 aligner.extend_gap_score = -0.5 # the penalty assigned to extending a gap by one base in a sequence alignment
 
-for mutant_record in mutant_records:
-    mutant_seq = mutant_record.seq
-    alignments = aligner.align(reference_seq, mutant_seq)
+alignments = aligner.align(str(ref_seq), str(var_seq))
+alignment = alignments[0] # access the best alignment
 
-    print(f"\nAlignment for {mutant_record.id}:")
-    print(alignments[0])  # Display best alignment
+print("Best Alignment:")
+print(alignment)
 
-# detect mutations by detecting single nucleotide polymorphisms (SNPs), insertions, and deletions.
-# Compare each aligned query sequence with the reference
-for mutant_record in mutant_records:
-    mutant_seq = mutant_record.seq
-    mutations = [] # extract and initialize a mutant list
 
-    # compare each nucleotide position while iterating over each sequence
-    for i, (ref_nuc, mutant_nuc) in enumerate(zip(reference_seq, mutant_seq)):
-        if ref_nuc != mutant_nuc:  # if the nucleotides are different then it is a mutant
-            # classify the mutant if it is detected
-            if ref_nuc == "-":
-                mutation_type = "Insertion"
-            elif mutant_nuc == "-":
-                mutation_type = "Deletion"
-            else:
-                mutation_type = "SNP"
-            mutations.append(f"Pos {i+1}: {ref_nuc} → {mutant_nuc} ({mutation_type})") # store the mutant information
 
-    print(f"\nMutations in {mutant_record.id}:")
-    print("\n".join(mutations) if mutations else "No mutations found")
