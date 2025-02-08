@@ -9,8 +9,8 @@ quickly mutate over time. Understanding these mutations is crucial for tracking 
 potential variants of concern.
 
 This project aims to analyze and characterize mutations in the SARS-CoV-2 genome.
-By leveraging genomic data from publicly available databases, I will identify key mutations. 
-This study will aim to provide insights into the evolutionary dynamics of COVID-19.
+By leveraging genomic data from publicly available databases, I will identify key mutations by
+providing insights into the evolutionary dynamics of COVID-19.
 <hr>
 
 ## Walk-Through
