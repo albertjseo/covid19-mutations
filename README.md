@@ -1,4 +1,5 @@
 # Identifying Key Mutations for SARS-CoV-2 
+<img src="https://img.shields.io/badge/language-Python-blue.svg" style="zoom:100%;" />
 <hr>
 
 ## Introduction
