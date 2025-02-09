@@ -44,7 +44,7 @@ To ensure a full analysis I do the following:
 ### Alignments
 ![alignment.png](reference_img/alignment.png)
 
-### 
-
+### Mutations 
+![mutations.png](reference_img/mutations.png)
 
 
