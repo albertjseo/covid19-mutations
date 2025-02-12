@@ -1,9 +1,6 @@
 from Bio import SeqIO
 from Bio.Align import PairwiseAligner
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
 
 # load the sequence files
 gb_ref_file = "/Users/albertseo/Development/covid19-mutations/ncbi_dataset/data/GenBank/NC_045512.2.gb"
